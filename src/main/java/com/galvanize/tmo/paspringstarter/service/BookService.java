@@ -18,7 +18,7 @@ public class BookService {
 	public List<Book> getBooks() {
 		List<Book> books = new ArrayList<>();
 		Book book = new Book();
-		book.setId(3);
+		book.setId(2);
 		book.setAuthor("Philip K. Dick");
 		book.setTitle("Do Androids Dream of Electric Sheep?");
 		book.setYearPublished(1968);
@@ -26,7 +26,7 @@ public class BookService {
 		
 		
 		Book book2 = new Book();
-		book2.setId(2);
+		book2.setId(3);
 		book2.setAuthor("William Gibson");
 		book2.setTitle("Neuromancer");
 		book2.setYearPublished(1984);
