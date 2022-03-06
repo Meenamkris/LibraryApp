@@ -1,6 +1,8 @@
 package com.galvanize.tmo.paspringstarter;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.galvanize.tmo.paspringstarter.domain.*;
 import com.galvanize.tmo.paspringstarter.service.BookService;
@@ -31,14 +34,16 @@ public class LibraryController {
     }
     
     @GetMapping("/api/books")
-    public ResponseEntity<List<Book>> getBooks(){
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, List<Book>>   getBooks(){
     	
-    	List<Book> books= bookService.getBooks();    	
-    	return new ResponseEntity<>(books,HttpStatus.OK);
+    	Map<String, List<Book>> books= bookService.getBooks();    	
+    	 return books;
     }
     
     @DeleteMapping("/api/books")
-    public ResponseEntity deleteBooks(){   	    	
-    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBooks(){   	
+    	bookService.deleteBooks();
     }
 }

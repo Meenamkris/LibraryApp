@@ -1,7 +1,11 @@
 package com.galvanize.tmo.paspringstarter.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -9,38 +13,30 @@ import com.galvanize.tmo.paspringstarter.domain.Book;
 
 @Component
 public class BookService {
+	
+	ArrayList<Book> bookList = new ArrayList<Book>();
 
-	public Book addBook(Book book) {
-		book.setId(1);
+	public Book addBook(Book book) {		
+		book.setId(bookList.size()+1);
+		bookList.add(book);
 		return book;
 	}
 
-	public List<Book> getBooks() {
-		List<Book> books = new ArrayList<>();
-		Book book = new Book();
-		book.setId(2);
-		book.setAuthor("Philip K. Dick");
-		book.setTitle("Do Androids Dream of Electric Sheep?");
-		book.setYearPublished(1968);
-		books.add(book);
+	public Map<String, List<Book>> getBooks() {	
 		
+		   Collections.sort(bookList, new Comparator<Book>() {
+	            @Override
+	            public int compare(Book o1, Book o2) {
+	                return o1.getTitle().compareTo(o2.getTitle());
+	            }
+	        });
+	        Map<String, List<Book>> books = new HashMap<String, List<Book>>();
+	        books.put("books", bookList);
+	        return books;	}
+
+	public void deleteBooks() {
+		bookList.clear();
 		
-		Book book2 = new Book();
-		book2.setId(3);
-		book2.setAuthor("William Gibson");
-		book2.setTitle("Neuromancer");
-		book2.setYearPublished(1984);
-		books.add(book2);
-		
-		
-		Book book3 = new Book();
-		book3.setId(1);
-		book3.setAuthor("Douglas Adams");
-		book3.setTitle("The Hitchhiker's Guide to the Galaxy");
-		book3.setYearPublished(1979);
-		books.add(book3);
-		
-		return books;
 	}
 
 }
